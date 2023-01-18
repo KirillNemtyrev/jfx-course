@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.community.application.controller.MainController">
+   <children>
+      <Pane fx:id="topPane" prefHeight="36.0" prefWidth="800.0" style="-fx-background-color: #05336e;">
+         <children>
+            <ImageView fx:id="collapseImg" fitHeight="40.0" fitWidth="32.0" layoutX="735.0" layoutY="2.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/collapse.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+            <ImageView fx:id="exitImg" fitHeight="40.0" fitWidth="32.0" layoutX="767.0" layoutY="2.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/close.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="loadPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="233.0" layoutY="232.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+               <children>
+                  <ImageView layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Load.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="64.0" layoutY="16.0" prefHeight="20.0" prefWidth="261.0" text="Загрузка, пожалуйста подождите.." textFill="#5e5e5e">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="profilePane" layoutX="14.0" layoutY="44.0" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #05336e; -fx-background-radius: 25px;">
+         <children>
+            <Circle fx:id="photoCircle" fill="DODGERBLUE" layoutX="24.0" layoutY="24.0" radius="21.0" stroke="#05336e" strokeType="INSIDE" />
+            <Label fx:id="welcomeLabel" layoutX="54.0" layoutY="6.0" text="Загрузка.." textFill="#f8f8f8">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="balanceLabel" layoutX="54.0" layoutY="23.0" text="Баланс: загрузка.." textFill="#dddddd">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ScrollPane hbarPolicy="NEVER" layoutY="112.0" prefHeight="488.0" prefWidth="800.0" style="-fx-background-color: transparent;" stylesheets="@../styles/scrollpane.css">
+        <content>
+          <AnchorPane fx:id="companyAnchor" minHeight="0.0" minWidth="0.0" prefHeight="485.0" prefWidth="785.0" style="-fx-background-color: white;" />
+        </content>
+      </ScrollPane>
+      <Pane fx:id="backpackPane" layoutX="213.0" layoutY="44.0" prefHeight="48.0" prefWidth="261.0" style="-fx-background-color: #8a2a08; -fx-background-radius: 25px;">
+         <children>
+            <Label layoutX="54.0" layoutY="6.0" text="Портфель" textFill="#f8f8f8">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="backpackBalanceLabel" layoutX="54.0" layoutY="23.0" text="Брокерский счёт: загрузка.." textFill="#dddddd">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="15.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="14.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/backpack.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane layoutX="738.0" layoutY="44.0" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #ae0707; -fx-background-radius: 25px;">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/exit.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Line endX="664.0" layoutX="115.0" layoutY="103.0" startX="-91.0" stroke="#aeaeae" />
+      <Pane layoutX="683.0" layoutY="44.0" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #010982; -fx-background-radius: 25px;">
+         <children>
+            <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/settings.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="messagePane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="181.0" layoutY="179.0" prefHeight="126.0" prefWidth="439.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/sad.png" />
+                     </image>
+                  </ImageView>
+                  <Label fx:id="messageTitleLabel" layoutX="113.0" layoutY="38.0" prefHeight="20.0" prefWidth="311.0" text="Неверный логин">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="messageDescriptionLabel" alignment="TOP_LEFT" layoutX="113.0" layoutY="56.0" prefHeight="44.0" prefWidth="311.0" text="Вы указали неверный логин или пароль!" textFill="#5e5e5e" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ImageView fx:id="messageCloseImg" fitHeight="40.0" fitWidth="32.0" layoutX="408.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="messagePane1" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
+         <children>
+            <Pane layoutX="181.0" prefHeight="518.0" prefWidth="439.0" style="-fx-background-color: white;">
+               <children>
+                  <ImageView fx:id="messageCloseImg1" fitHeight="40.0" fitWidth="32.0" layoutX="408.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <LineChart alternativeColumnFillVisible="true" layoutX="14.0" layoutY="14.0" legendSide="TOP" prefHeight="204.0" prefWidth="404.0" title="График роста/падений">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </LineChart>
+                  <Label alignment="CENTER" layoutY="200.0" prefHeight="18.0" prefWidth="439.0" text="Тинькофф">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </children>
+</Pane>
