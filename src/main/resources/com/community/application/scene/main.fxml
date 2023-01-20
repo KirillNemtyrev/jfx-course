@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,7 +16,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.community.application.controller.MainController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.202-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.community.application.controller.MainController">
    <children>
       <Pane fx:id="topPane" prefHeight="36.0" prefWidth="800.0" style="-fx-background-color: #05336e;">
          <children>
@@ -34,24 +36,16 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ImageView>
-         </children>
-      </Pane>
-      <Pane fx:id="loadPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
-         <children>
-            <Pane layoutX="233.0" layoutY="232.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
-               <children>
-                  <ImageView layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../images/Load.png" />
-                     </image>
-                  </ImageView>
-                  <Label layoutX="64.0" layoutY="16.0" prefHeight="20.0" prefWidth="261.0" text="Загрузка, пожалуйста подождите.." textFill="#5e5e5e">
-                     <font>
-                        <Font name="Franklin Gothic Medium" size="17.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
+            <ImageView fitHeight="102.0" fitWidth="32.0" layoutX="6.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/money.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="44.0" layoutY="7.0" text="Фондовая биржа" textFill="#e1e1e1">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="18.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="profilePane" layoutX="14.0" layoutY="44.0" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #05336e; -fx-background-radius: 25px;">
@@ -74,14 +68,14 @@
           <AnchorPane fx:id="companyAnchor" minHeight="0.0" minWidth="0.0" prefHeight="485.0" prefWidth="785.0" style="-fx-background-color: white;" />
         </content>
       </ScrollPane>
-      <Pane fx:id="backpackPane" layoutX="213.0" layoutY="44.0" prefHeight="48.0" prefWidth="261.0" style="-fx-background-color: #8a2a08; -fx-background-radius: 25px;">
+      <Pane fx:id="backpackPane" layoutX="213.0" layoutY="44.0" prefHeight="48.0" prefWidth="193.0" style="-fx-background-color: #8a2a08; -fx-background-radius: 25px;">
          <children>
             <Label layoutX="54.0" layoutY="6.0" text="Портфель" textFill="#f8f8f8">
                <font>
                   <Font name="Franklin Gothic Medium" size="15.0" />
                </font>
             </Label>
-            <Label fx:id="backpackBalanceLabel" layoutX="54.0" layoutY="23.0" text="Брокерский счёт: загрузка.." textFill="#dddddd">
+            <Label fx:id="backpackBalanceLabel" layoutX="54.0" layoutY="23.0" text="Сумма: загрузка.." textFill="#dddddd">
                <font>
                   <Font name="Franklin Gothic Medium" size="15.0" />
                </font>
@@ -93,7 +87,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Pane layoutX="738.0" layoutY="44.0" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #ae0707; -fx-background-radius: 25px;">
+      <Pane fx:id="exitPane" layoutX="738.0" layoutY="44.0" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #ae0707; -fx-background-radius: 25px;">
          <children>
             <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -103,20 +97,344 @@
          </children>
       </Pane>
       <Line endX="664.0" layoutX="115.0" layoutY="103.0" startX="-91.0" stroke="#aeaeae" />
-      <Pane layoutX="683.0" layoutY="44.0" prefHeight="48.0" prefWidth="48.0" style="-fx-background-color: #010982; -fx-background-radius: 25px;">
+      <Pane fx:id="companyPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <ImageView fitHeight="32.0" fitWidth="42.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../images/settings.png" />
-               </image>
-            </ImageView>
+            <Pane layoutX="181.0" prefHeight="518.0" prefWidth="439.0" style="-fx-background-color: white; -fx-background-radius: 5PX;">
+               <children>
+                  <ImageView fx:id="companyCloseImg" fitHeight="40.0" fitWidth="32.0" layoutX="407.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <LineChart fx:id="companyLineChart" alternativeColumnFillVisible="true" animated="false" layoutX="14.0" layoutY="14.0" legendSide="TOP" prefHeight="204.0" prefWidth="404.0" title="График роста/падений">
+                    <xAxis>
+                      <NumberAxis animated="false" side="BOTTOM" tickLabelsVisible="false" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis animated="false" side="LEFT" tickLabelsVisible="false" />
+                    </yAxis>
+                  </LineChart>
+                  <Label fx:id="companyNameLabel" alignment="CENTER" layoutY="200.0" prefHeight="18.0" prefWidth="439.0" text="Тинькофф">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="companyDescriptionLabel" alignment="CENTER" layoutX="18.0" layoutY="221.0" prefHeight="90.0" prefWidth="404.0" text="Российский коммерческий банк, сфокусированный полностью на дистанционном обслуживании, не имеющий розничных отделений. Крупнейший в мире онлайн-банк по количеству клиентов. Штаб-квартира банка расположена в Москве." textAlignment="CENTER" textFill="#686868" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="58.0" layoutY="354.0" text="Доступно акций" textAlignment="CENTER" textFill="#6b6b6b" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="companyCountLabel" alignment="CENTER" layoutX="14.0" layoutY="339.0" prefHeight="18.0" prefWidth="193.0" text="Доступно акций" textAlignment="CENTER" textFill="#363636" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="288.0" layoutY="354.0" text="Цена за 1 шт." textAlignment="CENTER" textFill="#6b6b6b" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="companyCostLabel" alignment="CENTER" layoutX="237.0" layoutY="339.0" prefHeight="18.0" prefWidth="193.0" text="Доступно акций" textAlignment="CENTER" textFill="#363636" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="countTextField" focusTraversable="false" layoutX="327.0" layoutY="394.0" prefHeight="27.0" prefWidth="63.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5px;" text="1">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label alignment="CENTER" layoutX="43.0" layoutY="397.0" text="Укажите нужное количество акций: " textAlignment="CENTER" textFill="#6b6b6b" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="companyBuyLabel" alignment="CENTER" layoutX="-4.0" layoutY="433.0" prefHeight="20.0" prefWidth="439.0" text="Купить 12312321 шт. за 342.43 руб?" textAlignment="CENTER" textFill="DIMGRAY" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="companyBuyBtn" layoutX="160.0" layoutY="460.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="119.0" style="-fx-background-color: #0aa138;" text="Купить" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="19.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="backpackMainPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="181.0" prefHeight="518.0" prefWidth="439.0" style="-fx-background-color: white; -fx-background-radius: 5PX;">
+               <children>
+                  <ImageView fx:id="backpackCloseImg" fitHeight="40.0" fitWidth="32.0" layoutX="407.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="7.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/backpack.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="40.0" layoutY="7.0" text="Ваш портфель">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="39.0" layoutY="60.0" text="Баланс портфеля" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="backpackCostLabel" alignment="CENTER" layoutX="30.0" layoutY="47.0" prefWidth="151.0" text="12312321.32 рубля">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="268.0" layoutY="60.0" text="Брокерский баланс" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="scoreBalanceLabel" alignment="CENTER" layoutX="266.0" layoutY="47.0" prefWidth="151.0" text="12312321.32 рубля">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <ScrollPane hbarPolicy="NEVER" layoutX="3.0" layoutY="82.0" prefHeight="435.0" prefWidth="432.0" style="-fx-background-color: transparent;" stylesheets="@../styles/scrollpane.css">
+                    <content>
+                      <AnchorPane fx:id="backpackAnchor" minHeight="0.0" minWidth="0.0" prefHeight="433.0" prefWidth="430.0" style="-fx-background-color: white;" />
+                    </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="sellStockPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="181.0" layoutY="180.0" prefHeight="204.0" prefWidth="439.0" style="-fx-background-color: white; -fx-background-radius: 5PX;">
+               <children>
+                  <ImageView fx:id="sellStockCloseImg" fitHeight="40.0" fitWidth="32.0" layoutX="407.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <ImageView fitHeight="28.0" fitWidth="32.0" layoutX="7.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/backpack.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="40.0" layoutY="7.0" text="Продать облигацию?">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sellStockMuchLabel" layoutX="286.0" layoutY="57.0" text="Баланс портфеля" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sellStockCostLabel" alignment="CENTER" layoutX="265.0" layoutY="43.0" prefWidth="151.0" text="12312321.32 рубля">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sellStockCountLabel" layoutX="69.0" layoutY="57.0" prefHeight="16.0" prefWidth="151.0" text="Брокерский баланс" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="sellStockNameLabel" layoutX="69.0" layoutY="43.0" prefHeight="20.0" prefWidth="176.0" text="12312321.32 рубля">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Circle fx:id="sellStockCircle" fill="DODGERBLUE" layoutX="40.0" layoutY="60.0" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Label fx:id="sellStockInfoLabel" layoutX="20.0" layoutY="116.0" prefHeight="42.0" prefWidth="392.0" text="При продаже 1 шт. вы получите на баланс 32174.32 руб." textAlignment="CENTER" textFill="#6f6f6f" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="sellStockTextField" focusTraversable="false" layoutX="332.0" layoutY="88.0" prefHeight="26.0" prefWidth="75.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5px;">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="21.0" layoutY="92.0" text="Укажите количество акций для продажи:" textAlignment="CENTER" textFill="#6f6f6f">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="sellStockBtn" layoutX="332.0" layoutY="158.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="81.0" style="-fx-background-color: #d32424;" text="Продать" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="settingsPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="228.0" layoutY="34.0" prefHeight="497.0" prefWidth="345.0" style="-fx-background-color: white; -fx-background-radius: 5PX;">
+               <children>
+                  <ImageView fx:id="settingsCloseImg" fitHeight="40.0" fitWidth="32.0" layoutX="313.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/close.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutX="31.0" layoutY="177.0" prefHeight="18.0" prefWidth="284.0" text="Размер изображения 48x48, формат png" textAlignment="CENTER" textFill="#6b6b6b">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="32.0" layoutY="114.0" prefHeight="42.0" prefWidth="156.0" text="С брокерского счёта на баланс" textAlignment="CENTER" textFill="#363636" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="settingsDividendsLabel" alignment="CENTER" layoutX="32.0" layoutY="80.0" prefHeight="18.0" prefWidth="156.0" text="Нет данных" textAlignment="CENTER" textFill="#6b6b6b" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="14.0" layoutY="65.0" prefHeight="18.0" prefWidth="193.0" text="Выплата дивидендов" textAlignment="CENTER" textFill="#363636" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="settingsDividendsBtn" layoutX="207.0" layoutY="64.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="107.0" style="-fx-background-color: #0aa138;" text="Запросить" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Button>
+                  <Circle fx:id="settingsCircle" fill="DODGERBLUE" layoutX="32.0" layoutY="30.0" radius="22.0" stroke="WHITE" strokeType="INSIDE" />
+                  <Label fx:id="settingsNameLabel" layoutX="58.0" layoutY="12.0" prefHeight="20.0" prefWidth="246.0" text="Доступно акций" textAlignment="CENTER" textFill="#363636" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="settingsEmailLabel" layoutX="58.0" layoutY="30.0" prefHeight="18.0" prefWidth="246.0" text="Доступно акций" textAlignment="CENTER" textFill="#6b6b6b" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="settingsPhotoBtn" layoutX="85.0" layoutY="195.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="176.0" style="-fx-background-color: #0aa138;" text="Сменить аватарку" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="settingsTransferBtn" layoutX="208.0" layoutY="119.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="107.0" style="-fx-background-color: #0aa138;" text="Перевести" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="35.0" layoutY="259.0" text="Изменить имя:" textAlignment="CENTER" textFill="#6b6b6b">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="settingsNameTextField" layoutX="36.0" layoutY="277.0" prefHeight="28.0" prefWidth="277.0" promptText="Поле для имени" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5px;">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="settingsNameBtn" layoutX="215.0" layoutY="311.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="99.0" style="-fx-background-color: #0aa138;" text="Обновить" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" layoutX="34.0" layoutY="339.0" text="Старый пароль:" textAlignment="CENTER" textFill="#6b6b6b">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="settingsOldPasswordField" layoutX="36.0" layoutY="357.0" prefHeight="26.0" prefWidth="277.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5px;">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <Label alignment="CENTER" layoutX="36.0" layoutY="393.0" text="Новый пароль:" textAlignment="CENTER" textFill="#6b6b6b">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="settingsNewPasswordField" layoutX="36.0" layoutY="411.0" prefHeight="26.0" prefWidth="277.0" style="-fx-background-color: white; -fx-border-color: gray; -fx-border-radius: 5px;">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="14.0" />
+                     </font>
+                  </PasswordField>
+                  <Button fx:id="settingsPasswordBtn" layoutX="166.0" layoutY="445.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="147.0" style="-fx-background-color: #0aa138;" text="Сменить пароль" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="exitAccountPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
+         <children>
+            <Pane layoutX="181.0" layoutY="179.0" prefHeight="126.0" prefWidth="439.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
+               <children>
+                  <ImageView layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/question.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="109.0" layoutY="27.0" text="Выход из аккаунта">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="22.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="messageDescriptionLabel1" alignment="TOP_LEFT" layoutX="109.0" layoutY="47.0" text="Вы действительно хотите выйти?" textFill="#6b6b6b" wrapText="true">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="19.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="exitBtn" focusTraversable="false" layoutX="256.0" layoutY="87.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="90.0" style="-fx-background-color: #c92b2b;" text="Выйти" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <Button fx:id="cancelBtn" focusTraversable="false" layoutX="352.0" layoutY="87.0" mnemonicParsing="false" style="-fx-background-color: #4f8d94;" text="Отмена" textFill="WHITE">
+                     <font>
+                        <Font name="Franklin Gothic Medium" size="17.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane fx:id="messagePane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
             <Pane layoutX="181.0" layoutY="179.0" prefHeight="126.0" prefWidth="439.0" style="-fx-background-color: white;">
                <children>
-                  <ImageView layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="messageImg" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../images/sad.png" />
                      </image>
@@ -143,29 +461,18 @@
             </Pane>
          </children>
       </Pane>
-      <Pane fx:id="messagePane1" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);">
+      <Pane fx:id="loadPane" layoutY="36.0" prefHeight="564.0" prefWidth="800.0" style="-fx-background-color: rgba(0, 0, 0, 0.6);" visible="false">
          <children>
-            <Pane layoutX="181.0" prefHeight="518.0" prefWidth="439.0" style="-fx-background-color: white;">
+            <Pane layoutX="233.0" layoutY="232.0" prefHeight="50.0" prefWidth="334.0" style="-fx-background-color: white; -fx-background-radius: 5px;">
                <children>
-                  <ImageView fx:id="messageCloseImg1" fitHeight="40.0" fitWidth="32.0" layoutX="408.0" opacity="0.75" pickOnBounds="true" preserveRatio="true">
+                  <ImageView layoutX="8.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../images/close.png" />
+                        <Image url="@../images/Load.png" />
                      </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
                   </ImageView>
-                  <LineChart alternativeColumnFillVisible="true" layoutX="14.0" layoutY="14.0" legendSide="TOP" prefHeight="204.0" prefWidth="404.0" title="График роста/падений">
-                    <xAxis>
-                      <CategoryAxis side="BOTTOM" />
-                    </xAxis>
-                    <yAxis>
-                      <NumberAxis side="LEFT" />
-                    </yAxis>
-                  </LineChart>
-                  <Label alignment="CENTER" layoutY="200.0" prefHeight="18.0" prefWidth="439.0" text="Тинькофф">
+                  <Label layoutX="64.0" layoutY="16.0" prefHeight="20.0" prefWidth="261.0" text="Загрузка, пожалуйста подождите.." textFill="#5e5e5e">
                      <font>
-                        <Font name="Franklin Gothic Medium" size="15.0" />
+                        <Font name="Franklin Gothic Medium" size="17.0" />
                      </font>
                   </Label>
                </children>

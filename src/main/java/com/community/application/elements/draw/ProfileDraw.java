@@ -1,6 +1,9 @@
 package com.community.application.elements.draw;
 
 import com.community.application.Runner;
+import com.community.application.handler.TokenHandler;
+import com.community.application.retrofit.api.SettingsApi;
+import com.community.application.retrofit.handler.SettingsHandler;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,8 +20,11 @@ import java.time.ZoneId;
 import java.util.Locale;
 import java.util.Objects;
 
+import static com.community.application.Runner.retrofit;
+
 public class ProfileDraw {
 
+    private final Pane loadPane;
     private final Circle photoCircle;
     private final Pane profilePane;
     private final Label welcomeLabel;
@@ -27,13 +33,31 @@ public class ProfileDraw {
     private final Pane backpackPane;
     private final Label backpackBalanceLabel;
 
-    public ProfileDraw(Circle photoCircle, Pane profilePane, Label welcomeLabel, Label balanceLabel, Pane backpackPane, Label backpackBalanceLabel) {
+    public ProfileDraw(Pane loadPane, Circle photoCircle, Pane profilePane, Label welcomeLabel, Label balanceLabel, Pane backpackPane, Label backpackBalanceLabel) {
+        this.loadPane = loadPane;
         this.photoCircle = photoCircle;
         this.profilePane = profilePane;
         this.welcomeLabel = welcomeLabel;
         this.balanceLabel = balanceLabel;
         this.backpackPane = backpackPane;
         this.backpackBalanceLabel = backpackBalanceLabel;
+    }
+
+    public void setOnMouseEntered(){
+        profilePane.setOnMouseEntered(event -> profilePane.setStyle("-fx-background-color: #042856; -fx-background-radius: 25px"));
+    }
+
+    public void setOnMouseExited(){
+        profilePane.setOnMouseExited(event -> profilePane.setStyle("-fx-background-color: #05336e; -fx-background-radius: 25px"));
+    }
+
+    public void setOnMouseClicked(){
+        profilePane.setOnMouseClicked(event -> {
+            loadPane.setVisible(true);
+
+            SettingsApi settingsApi = retrofit.create(SettingsApi.class);
+            settingsApi.get(TokenHandler.token).enqueue(new SettingsHandler());
+        });
     }
 
     public void setProfileElement(String username, String name, BigDecimal balance) {
@@ -58,31 +82,31 @@ public class ProfileDraw {
         balanceLabel.setText(text.getText());
         balanceLabel.setPrefSize(text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight());
 
-        ImageView imageView = new ImageView(new Image(new File(Objects.requireNonNull(Runner.class.getResource("images/ruble.png")).getPath()).toURI().toString()));
+        ImageView imageView = profilePane.getChildren().size() == 4 ? (ImageView) profilePane.getChildren().get(3) : new ImageView(new Image(new File(Objects.requireNonNull(Runner.class.getResource("images/ruble.png")).getPath()).toURI().toString()));
         imageView.setLayoutX(text.getLayoutBounds().getWidth() + 59);
         imageView.setLayoutY(22);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
 
-        profilePane.getChildren().add(imageView);
+        if (profilePane.getChildren().size() != 4) profilePane.getChildren().add(imageView);
     }
 
     public void setBackpackElement(BigDecimal backpack){
 
-        Text text = new Text("Брокерский счёт: " + String.format(Locale.US, "%.2f", backpack));
+        Text text = new Text("Сумма: " + String.format(Locale.US, "%.2f", backpack));
         text.setFont(Font.font("Franklin Gothic Medium", 15));
 
         backpackBalanceLabel.setText(text.getText());
         backpackBalanceLabel.setPrefSize(text.getLayoutBounds().getWidth(), text.getLayoutBounds().getHeight());
         backpackPane.setPrefWidth(text.getLayoutBounds().getWidth() + 95);
 
-        ImageView imageView = new ImageView(new Image(new File(Objects.requireNonNull(Runner.class.getResource("images/ruble.png")).getPath()).toURI().toString()));
+        ImageView imageView = backpackPane.getChildren().size() == 4 ? (ImageView) backpackPane.getChildren().get(3) : new ImageView(new Image(new File(Objects.requireNonNull(Runner.class.getResource("images/ruble.png")).getPath()).toURI().toString()));
         imageView.setLayoutX(text.getLayoutBounds().getWidth() + 59);
         imageView.setLayoutY(22);
         imageView.setFitHeight(20);
         imageView.setFitWidth(20);
 
-        backpackPane.getChildren().add(imageView);
+        if (backpackPane.getChildren().size() != 4) backpackPane.getChildren().add(imageView);
 
     }
 }

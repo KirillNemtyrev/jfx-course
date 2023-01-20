@@ -101,24 +101,28 @@ public class RegisterField {
 
         if (!username.matches("^{6,40}[a-zA-Z0-9]+$")){
             messageDraw.setMessage("Некоректный формат данных!", "Логин должен содержать от 6 до 40 символов, и иметь только англ. символы");
+            messageDraw.error();
             messageDraw.show();
             return;
         }
 
         if (name.length() < 6 || name.length() > 40){
             messageDraw.setMessage("Некоректный формат данных!", "Имя должно содержать от 6 до 40 символов..");
+            messageDraw.error();
             messageDraw.show();
             return;
         }
 
         if (!email.matches("^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$")){
             messageDraw.setMessage("Некоректный формат данных!", "Некоректно указана почта..");
+            messageDraw.error();
             messageDraw.show();
             return;
         }
 
         if (!password.matches("^{6,40}[a-zA-Z0-9]+$")){
             messageDraw.setMessage("Некоректный формат данных!", "Пароль должен содержать от 6 до 40 символов, и иметь только англ. символы");
+            messageDraw.error();
             messageDraw.show();
             return;
         }

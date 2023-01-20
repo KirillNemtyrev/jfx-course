@@ -24,6 +24,7 @@ public class AuthHandler implements Callback<TokenResponse> {
 
         if (!response.isSuccessful()){
             messageDraw.setMessage("Ошибка авторизации!", "Неверный логин или пароль!");
+            messageDraw.error();
             messageDraw.show();
             return;
         }
@@ -37,11 +38,13 @@ public class AuthHandler implements Callback<TokenResponse> {
                     mainController.start(messageDraw.getStage());
                 } catch (IOException e) {
                     messageDraw.setMessage("Произошла ошибка!", "Не удалось загрузить сцену!");
+                    messageDraw.error();
                     messageDraw.show();
                 }
             });
         } else {
             messageDraw.setMessage("Произошла ошибка!", "Попробуйте позже..");
+            messageDraw.error();
             messageDraw.show();
         }
 
@@ -51,6 +54,7 @@ public class AuthHandler implements Callback<TokenResponse> {
     @Override
     public void onFailure(Call<TokenResponse> call, Throwable throwable) {
         messageDraw.setMessage("Произошла ошибка!", "Не удалось дождаться ответа от сервера... Попробуйте позже");
+        messageDraw.error();
         messageDraw.show();
     }
 

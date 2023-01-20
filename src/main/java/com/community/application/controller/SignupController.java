@@ -31,6 +31,7 @@ public class SignupController extends Application {
     @FXML private ImageView exitImg;
     @FXML private TextField loginField;
     @FXML private TextField nameField;
+    @FXML private ImageView messageImg;
     @FXML private ImageView messageCloseImg;
     @FXML private Label messageDescriptionLabel;
     @FXML private Pane messagePane;
@@ -54,7 +55,7 @@ public class SignupController extends Application {
         List<Pane> list = new ArrayList<>();
         list.add(loadPane);
 
-        MessageDraw messageDraw = new MessageDraw(messageCloseImg, messageDescriptionLabel, messagePane, messageTitleLabel, list);
+        MessageDraw messageDraw = new MessageDraw(messageImg, messageCloseImg, messageDescriptionLabel, messagePane, messageTitleLabel, list);
         messageDraw.setOnMouseEntered();
         messageDraw.setOnMouseExited();
         messageDraw.setOnMouseClicked();

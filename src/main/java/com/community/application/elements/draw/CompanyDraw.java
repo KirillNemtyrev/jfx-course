@@ -1,10 +1,22 @@
 package com.community.application.elements.draw;
 
+import com.community.application.handler.TokenHandler;
+import com.community.application.retrofit.api.StockApi;
+import com.community.application.retrofit.handler.StockBuyHandler;
+import com.community.application.retrofit.request.BuyStockRequest;
 import com.community.application.retrofit.response.CompanyResponse;
+import com.community.application.retrofit.response.StockResponse;
+import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -12,15 +24,42 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.community.application.Runner.retrofit;
+
 public class CompanyDraw {
+
     private final AnchorPane anchorPane;
 
-    public CompanyDraw(AnchorPane anchorPane) {
+    private final Button companyBuyBtn;
+    private final Label companyBuyLabel;
+    private final ImageView companyCloseImg;
+    private final Label companyCostLabel;
+    private final Label companyCountLabel;
+    private final Label companyDescriptionLabel;
+    private final LineChart<Number, Double> companyLineChart;
+    private final Label companyNameLabel;
+    private final Pane companyPane;
+    private final Pane loadPane;
+    private final TextField countTextField;
+
+    public CompanyDraw(AnchorPane anchorPane, Button companyBuyBtn, Label companyBuyLabel, ImageView companyCloseImg, Label companyCostLabel, Label companyCountLabel, Label companyDescriptionLabel, LineChart<Number, Double> companyLineChart, Label companyNameLabel, Pane companyPane, Pane loadPane, TextField countTextField) {
         this.anchorPane = anchorPane;
+        this.companyBuyBtn = companyBuyBtn;
+        this.companyBuyLabel = companyBuyLabel;
+        this.companyCloseImg = companyCloseImg;
+        this.companyCostLabel = companyCostLabel;
+        this.companyCountLabel = companyCountLabel;
+        this.companyDescriptionLabel = companyDescriptionLabel;
+        this.companyLineChart = companyLineChart;
+        this.companyNameLabel = companyNameLabel;
+        this.companyPane = companyPane;
+        this.loadPane = loadPane;
+        this.countTextField = countTextField;
     }
 
     public void init(List<CompanyResponse> list) {
@@ -35,9 +74,6 @@ public class CompanyDraw {
 
             CompanyResponse companyResponse = list.get(temp);
 
-            Pane pane = getPane();
-            pane.setLayoutY(4 + 57*temp);
-
             Circle photo = getCircle(companyResponse.getId());
             Label name = getLabelName(companyResponse.getName());
             Label owner = getLabelOwner(companyResponse.getOwner());
@@ -45,6 +81,9 @@ public class CompanyDraw {
             Label countDesc = getLabelForCount();
             Label cost = getLabelCost(companyResponse.getCost());
             Label stock = getLabelStock(companyResponse.getMuch(), companyResponse.isUpper(), companyResponse.getProcent());
+
+            Pane pane = getPane(companyResponse);
+            pane.setLayoutY(4 + 57*temp);
 
             pane.getChildren().addAll(photo, name, owner, count, countDesc, cost, stock);
             anchorPane.getChildren().add(pane);
@@ -54,7 +93,7 @@ public class CompanyDraw {
 
     }
 
-    public Pane getPane() {
+    public Pane getPane(CompanyResponse companyResponse) {
 
         Pane pane = new Pane();
         pane.setLayoutX(20);
@@ -65,6 +104,7 @@ public class CompanyDraw {
 
         pane.setOnMouseEntered(event -> pane.setStyle("-fx-background-color: #dadada"));
         pane.setOnMouseExited(event -> pane.setStyle("-fx-background-color: white"));
+        pane.setOnMouseClicked(event -> show(companyResponse));
         return pane;
     }
 
@@ -154,5 +194,82 @@ public class CompanyDraw {
         label.setTextFill(Paint.valueOf(upper ? "#0f8d24" : "#c91407"));
         label.setAlignment(Pos.CENTER);
         return label;
+    }
+
+    public void setOnMouseEntered() {
+        companyCloseImg.setOnMouseEntered(event -> companyCloseImg.setOpacity(1.0));
+        companyBuyBtn.setOnMouseEntered(event -> companyBuyBtn.setTextFill(Paint.valueOf("#d7d4d4")));
+    }
+
+    public void setOnMouseExited() {
+        companyCloseImg.setOnMouseExited(event -> companyCloseImg.setOpacity(0.75));
+        companyBuyBtn.setOnMouseExited(event -> companyBuyBtn.setTextFill(Paint.valueOf("white")));
+    }
+
+    public void setOnMouseClicked() {
+        companyCloseImg.setOnMouseClicked(event -> companyPane.setVisible(false));
+    }
+
+    public void show(CompanyResponse companyResponse) {
+        Platform.runLater(() -> {
+
+            XYChart.Series<Number, Double> dataSeries = new XYChart.Series<>();
+            companyLineChart.getData().clear();
+
+            for (StockResponse stockResponse : companyResponse.getStocks()) {
+                dataSeries.getData().add(new XYChart.Data<>(stockResponse.getDate().intValue(), stockResponse.getCost().doubleValue()));
+            }
+            companyLineChart.getData().clear();
+            companyLineChart.getData().add(dataSeries);
+
+            companyNameLabel.setText(companyResponse.getName());
+            companyDescriptionLabel.setText(companyResponse.getDescription());
+            companyCountLabel.setText(String.valueOf(companyResponse.getStock()));
+            companyCostLabel.setText(String.valueOf(companyResponse.getCost().doubleValue()));
+            countTextField.setText("1");
+            companyBuyLabel.setText("Купить 1 шт. за " + companyResponse.getCost() + "?");
+
+            companyBuyBtn.setOnMouseClicked(event -> buyStock(companyResponse));
+
+            FadeTransition fadeTransition = new FadeTransition(Duration.millis(300), companyPane);
+            fadeTransition.setFromValue(0.0);
+            fadeTransition.setByValue(1.0);
+            fadeTransition.setAutoReverse(true);
+
+            companyPane.setVisible(true);
+            fadeTransition.play();
+        });
+    }
+
+    public void actionOnTextField() {
+        countTextField.textProperty().addListener((observable, oldValue, newValue) -> Platform.runLater(() -> {
+            if (!newValue.matches("[-+]?\\d+")) {
+                countTextField.setText(newValue);
+                return;
+            }
+
+            int value = Integer.parseInt(newValue);
+            int max = Integer.parseInt(companyCountLabel.getText());
+            if (value > max) {
+                countTextField.setText(oldValue);
+                return;
+            }
+
+            BigDecimal cost = BigDecimal.valueOf(Double.parseDouble(companyCostLabel.getText()));
+            companyBuyLabel.setText("Купить " + value + " шт. за " + cost.multiply(BigDecimal.valueOf(value)) + "?");
+        }));
+    }
+
+    public void buyStock(CompanyResponse companyResponse) {
+
+        String string = countTextField.getText().trim();
+        if (string.isEmpty()) return;
+        Long count = Long.valueOf(string);
+
+        loadPane.setVisible(true);
+        StockApi stockApi = retrofit.create(StockApi.class);
+
+        BuyStockRequest buyStockRequest = new BuyStockRequest(companyResponse.getId(), count);
+        stockApi.buy(TokenHandler.token, buyStockRequest).enqueue(new StockBuyHandler(companyResponse, count));
     }
 }

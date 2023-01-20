@@ -1,6 +1,5 @@
 package com.community.application.retrofit.handler;
 
-import com.community.application.Runner;
 import com.community.application.controller.SigningController;
 import com.community.application.elements.draw.MessageDraw;
 import com.community.application.handler.RegToAuthHandler;
@@ -32,6 +31,7 @@ public class RegisterHandler implements Callback<ResponseBody> {
                 messageDraw.setMessage("Ошибка регистрации!",
                         message.equals("Username is already taken!") ? "Данное имя пользователя занято!" :
                                 message.equals("Email Address already in use!") ? "Данный E-mail адресс уже занят!" : "Попробуйте позже...");
+                messageDraw.error();
                 messageDraw.show();
                 return;
             }
@@ -42,12 +42,14 @@ public class RegisterHandler implements Callback<ResponseBody> {
                     signingController.start(messageDraw.getStage());
                 } catch (IOException e) {
                     messageDraw.setMessage("Произошла ошибка!", "Произошла ошибка в смене сцены! Попробуйте позже...");
+                    messageDraw.error();
                     messageDraw.show();
                 }
             });
 
         } catch (IOException e) {
             messageDraw.setMessage("Произошла ошибка!", "Произошла ошибка! Попробуйте позже...");
+            messageDraw.error();
             messageDraw.show();
         }
 
@@ -60,6 +62,7 @@ public class RegisterHandler implements Callback<ResponseBody> {
         RegToAuthHandler.password = null;
 
         messageDraw.setMessage("Произошла ошибка!", "Не удалось дождаться ответа от сервера... Попробуйте позже");
+        messageDraw.error();
         messageDraw.show();
     }
 }

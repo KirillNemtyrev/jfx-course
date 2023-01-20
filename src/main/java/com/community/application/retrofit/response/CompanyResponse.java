@@ -9,7 +9,9 @@ public class CompanyResponse {
     private String owner;
     private List<StockResponse> stocks;
     private Long stock;
+    private Long countHave;
     private BigDecimal much;
+    private String description;
 
     private BigDecimal cost;
     private float procent;
@@ -49,5 +51,17 @@ public class CompanyResponse {
 
     public BigDecimal getMuch() {
         return much;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setStock(Long stock) {
+        this.stock = stock;
+    }
+
+    public Long getCountHave() {
+        return countHave;
     }
 }

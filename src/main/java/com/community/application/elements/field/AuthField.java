@@ -72,12 +72,14 @@ public class AuthField {
 
         if (!username.matches("^{6,40}[a-zA-Z0-9]+$")){
             messageDraw.setMessage("Некоректный формат данных!", "Логин должен содержать от 6 до 40 символов, и иметь только англ. символы");
+            messageDraw.error();
             messageDraw.show();
             return;
         }
 
         if (!password.matches("^{6,40}[a-zA-Z0-9]+$")){
             messageDraw.setMessage("Некоректный формат данных!", "Пароль должен содержать от 6 до 40 символов, и иметь только англ. символы");
+            messageDraw.error();
             messageDraw.show();
             return;
         }

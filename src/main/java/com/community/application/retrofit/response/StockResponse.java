@@ -1,13 +1,15 @@
 package com.community.application.retrofit.response;
 
+import java.math.BigDecimal;
+
 public class StockResponse {
-    private Long cost;
+    private BigDecimal cost;
     private float procent;
     private boolean upper;
-
     private Long much;
+    private Long date;
 
-    public Long getCost() {
+    public BigDecimal getCost() {
         return cost;
     }
 
@@ -21,5 +23,9 @@ public class StockResponse {
 
     public Long getMuch() {
         return much;
+    }
+
+    public Long getDate() {
+        return date;
     }
 }

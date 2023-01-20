@@ -34,6 +34,7 @@ public class SigningController extends Application {
     @FXML private Label registerLabel;
     @FXML private Pane topPane;
     @FXML private Pane loadPane;
+    @FXML private ImageView messageImg;
     @FXML private ImageView messageCloseImg;
     @FXML private Label messageDescriptionLabel;
     @FXML private Pane messagePane;
@@ -53,7 +54,7 @@ public class SigningController extends Application {
         List <Pane> list = new ArrayList<>();
         list.add(loadPane);
 
-        MessageDraw messageDraw = new MessageDraw(messageCloseImg, messageDescriptionLabel, messagePane, messageTitleLabel, list);
+        MessageDraw messageDraw = new MessageDraw(messageImg, messageCloseImg, messageDescriptionLabel, messagePane, messageTitleLabel, list);
         messageDraw.setOnMouseEntered();
         messageDraw.setOnMouseExited();
         messageDraw.setOnMouseClicked();
